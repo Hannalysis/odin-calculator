@@ -44,3 +44,24 @@ console.log(operate(10, '+', 11));
 console.log(operate(5, '-', 2));
 console.log(operate(10, multiplySymbol, 11));
 console.log(operate(10, divideSymbol, 2));
+
+//HTML element generation with DOM
+
+const container = document.querySelector("#container");
+
+boxNum = 1;
+for (let i = 1; i < 6; i++) {
+    /* Create the row*/
+    const row = document.createElement("div");
+    row.setAttribute("class", `row`);
+    container.appendChild(row);
+    for (let i = 1; i < 5; i++){
+        /* Create the boxes for the row*/
+        const div = document.createElement("div");
+        div.setAttribute("id", `box${boxNum}`);
+        div.setAttribute('class', "box");
+        row.appendChild(div);
+        document.getElementById(`box${boxNum}`).innerHTML = 'PH';
+        boxNum++;
+    }
+}
