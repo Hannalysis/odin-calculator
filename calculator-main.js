@@ -49,7 +49,12 @@ console.log(operate(10, divideSymbol, 2));
 
 const container = document.querySelector("#container");
 
+// #box1, #box2 & #box3 are hidden so are assigned N/A to allow full list iteration
+calcList = ["N/A","N/A", "N/A","1234567890", "7", "8", "9", multiplySymbol, "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", divideSymbol, "="];
+
 boxNum = 1;
+calcListCounter = 0;
+
 for (let i = 1; i < 6; i++) {
     /* Create the row*/
     const row = document.createElement("div");
@@ -61,7 +66,11 @@ for (let i = 1; i < 6; i++) {
         div.setAttribute("id", `box${boxNum}`);
         div.setAttribute('class', "box");
         row.appendChild(div);
-        document.getElementById(`box${boxNum}`).innerHTML = 'PH';
+        const para = document.createElement("p");
+        div.appendChild(para);
+        para.innerHTML = calcList[calcListCounter];
+        // document.getElementById(`box${boxNum}`).innerHTML = 'PH';
         boxNum++;
+        calcListCounter ++;
     }
 }
