@@ -12,6 +12,9 @@ p {
     font-family: cursive;
     font-weight:700;
     font-size: 20px;
+    margin: 0px;
+    flex-grow: 1;
+    padding-top: 20px;
 }
 
 .row {
@@ -36,6 +39,7 @@ p {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
     align-content: center;
+    display: flex;
 }
 
 #box1, #box2, #box3 {
