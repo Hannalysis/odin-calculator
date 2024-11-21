@@ -55,6 +55,14 @@ calcList = ["N/A","N/A", "N/A","1234567890", "7", "8", "9", multiplySymbol, "4",
 boxNum = 1;
 calcListCounter = 0;
 
+// Button Functionality
+
+const digitClick = function(event) {
+
+  const targetId = event.target.innerHTML;
+  console.log(targetId);
+}
+
 for (let i = 1; i < 6; i++) {
     /* Create the row*/
     const row = document.createElement("div");
@@ -66,11 +74,17 @@ for (let i = 1; i < 6; i++) {
         div.setAttribute("id", `box${boxNum}`);
         div.setAttribute('class', "box");
         row.appendChild(div);
+        /* Then add the text element*/
         const para = document.createElement("p");
         div.appendChild(para);
+        /* Iterating through the calculator interface list*/
         para.innerHTML = calcList[calcListCounter];
-        // document.getElementById(`box${boxNum}`).innerHTML = 'PH';
+        /* Adding the clickable 'buttons' on p*/
+        document.getElementById(`box${boxNum}`).addEventListener("click", digitClick);
         boxNum++;
         calcListCounter ++;
     }
 }
+// Removing the click from the Calculator's screen
+document.getElementById("box4").removeEventListener("click", digitClick);
+
