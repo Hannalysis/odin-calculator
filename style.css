@@ -8,6 +8,12 @@ h1 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+p {
+    font-family: cursive;
+    font-weight:700;
+    font-size: 20px;
+}
+
 .row {
     display: flex;
     flex-grow: 1;
@@ -29,12 +35,13 @@ h1 {
     color: darkgray;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
+    align-content: center;
 }
 
-#box1, #box2, #box4 {
+#box1, #box2, #box3 {
     display: none;
 }
 
-#box3 {
+#box4 {
     width: 330px;
 }
