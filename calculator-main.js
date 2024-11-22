@@ -50,7 +50,7 @@ console.log(operate(10, divideSymbol, 2));
 const container = document.querySelector("#container");
 
 // #box1, #box2 & #box3 are hidden so are assigned N/A to allow full list iteration
-calcList = ["N/A","N/A", "N/A","1234567890", "7", "8", "9", multiplySymbol, "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", divideSymbol, "="];
+const calcList = ["N/A","N/A", "N/A","1234567890", "7", "8", "9", multiplySymbol, "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", "=", divideSymbol];
 
 boxNum = 1;
 calcListCounter = 0;
@@ -59,32 +59,51 @@ calcListCounter = 0;
 
 const digitClick = function(event) {
 
-  const targetId = event.target.innerHTML;
-  console.log(targetId);
+  const targetDigit = event.target.innerHTML;
+  cleanTargetDigit = targetDigit.replace(/<\/p>|<p>/g, ""); // replacing the closing tag is not neccessary for my function to work (as parseFloat negates anything after the number) it's for clarity/futureproofing
+  console.log(cleanTargetDigit);
+  screen.push(parseFloat(cleanTargetDigit));
+  console.log(screen);
+}
+
+const operatorClick = function(event) {
+
+  const targetOp = event.target.innerHTML;
+  cleanTargetOp = targetOp.replace(/<\/p>|<p>/g, "");
+  console.log(cleanTargetOp);
+  screen.push(cleanTargetOp);
+  console.log(screen);
 }
 
 for (let i = 1; i < 6; i++) {
-    /* Create the row*/
+    /* Create the row */
     const row = document.createElement("div");
     row.setAttribute("class", `row`);
     container.appendChild(row);
     for (let i = 1; i < 5; i++){
-        /* Create the boxes for the row*/
+        /* Create the boxes for the row */
         const div = document.createElement("div");
         div.setAttribute("id", `box${boxNum}`);
         div.setAttribute('class', "box");
         row.appendChild(div);
-        /* Then add the text element*/
+        /* Then add the text element */
         const para = document.createElement("p");
         div.appendChild(para);
-        /* Iterating through the calculator interface list*/
+        /* Iterating through the calculator interface list */
         para.innerHTML = calcList[calcListCounter];
-        /* Adding the clickable 'buttons' on p*/
-        document.getElementById(`box${boxNum}`).addEventListener("click", digitClick);
+        /* Adding the clickable 'buttons' on p */
+        if (boxNum % 4 == 0){
+          /* For operation buttons on far right column */
+          document.getElementById(`box${boxNum}`).addEventListener("click", operatorClick);
+        }
+        else {
+          document.getElementById(`box${boxNum}`).addEventListener("click", digitClick);
+        }
         boxNum++;
         calcListCounter ++;
     }
 }
-// Removing the click from the Calculator's screen
+// Removing the click event from the Calculator's screen
 document.getElementById("box4").removeEventListener("click", digitClick);
 
+screen = [];
