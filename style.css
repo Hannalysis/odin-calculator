@@ -48,4 +48,12 @@ p {
 
 #box4 {
     width: 330px;
+    p {
+        font-size: 28px;
+        font-weight: 800px;
+        text-align: right;
+        margin-right: 20px;
+        border-bottom: 10px;
+    }
 }
+
