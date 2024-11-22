@@ -21,7 +21,6 @@ const divide = function(num1, num2) {
   return num1 / num2;
 };
 
-// operations = {'+' : add, '-' : subtract, '*' : multiply, "/" : divide}
 
 const operate = function(num1, operator, num2){
   switch(operator) {
@@ -64,7 +63,6 @@ const screenUpdate = function() {
     /* Getting hold of the <p> tag for the screen update */
     calcScreen = document.getElementById("box4").firstChild;
     calcScreen.innerHTML = screen.join('');
-    console.log(calcScreen);
 }
 
 const digitClick = function(event) {
@@ -80,9 +78,29 @@ const operatorClick = function(event) {
 
   const targetOp = event.target.innerHTML;
   cleanTargetOp = targetOp.replace(/<\/p>|<p>/g, "");
+  lastOpPress = cleanTargetOp;
   screen.push(cleanTargetOp);
   screenUpdate();
   console.log(screen);
+}
+
+const clearScreen = function() {
+  calcScreen = document.getElementById("box4").firstChild;
+  screen = [];
+  calcScreen.innerHTML = screen;
+}
+
+// Stored variable operator for split in calculate function
+lastOpPress = '';
+
+const calculate = function () {
+  calcScreen = document.getElementById("box4").firstChild;
+  calcScreenString = calcScreen.innerHTML;
+  calcScreenSplit = calcScreenString.split(lastOpPress);
+  result = operate(parseFloat(calcScreenSplit[0]), lastOpPress, parseFloat(calcScreenSplit[1]));
+  clearScreen();
+  screen.push(result);
+  screenUpdate();
 }
 
 // Calculator Generator
@@ -115,5 +133,14 @@ for (let i = 1; i < 6; i++) {
         calcListCounter ++;
     }
 }
+
 // Removing the click event from the Calculator's screen
-document.getElementById("box4").removeEventListener("click", digitClick);
+document.getElementById("box4").removeEventListener("click", operatorClick);
+
+// Adding the clear button
+document.getElementById("box17").removeEventListener("click", digitClick);
+document.getElementById("box17").addEventListener("click", clearScreen);
+
+// Adding the operate function to the equals button
+document.getElementById("box19").removeEventListener("click", digitClick);
+document.getElementById("box19").addEventListener("click", calculate);
