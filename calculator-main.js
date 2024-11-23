@@ -78,6 +78,9 @@ const operatorClick = function(event) {
 
   const targetOp = event.target.innerHTML;
   cleanTargetOp = targetOp.replace(/<\/p>|<p>/g, "");
+  if (screen.includes("+") || screen.includes("-") || screen.includes(multiplySymbol)|| screen.includes(divideSymbol)) {
+    calculate();
+  }
   lastOpPress = cleanTargetOp;
   screen.push(cleanTargetOp);
   screenUpdate();
