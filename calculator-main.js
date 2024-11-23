@@ -35,15 +35,6 @@ const operate = function(num1, operator, num2){
   }
 }
 
-// Test code
-console.log(divideSymbol);
-console.log(multiplySymbol);
-
-console.log(operate(10, '+', 11));
-console.log(operate(5, '-', 2));
-console.log(operate(10, multiplySymbol, 11));
-console.log(operate(10, divideSymbol, 2));
-
 // HTML element generation with DOM
 
 const container = document.querySelector("#container");
@@ -74,11 +65,15 @@ const digitClick = function(event) {
   console.log(screen);
 }
 
+const opCheck = function () {
+  return screen.includes("+") || screen.includes("-") || screen.includes(multiplySymbol)|| screen.includes(divideSymbol)
+   }
+ 
 const operatorClick = function(event) {
 
   const targetOp = event.target.innerHTML;
   cleanTargetOp = targetOp.replace(/<\/p>|<p>/g, "");
-  if (screen.includes("+") || screen.includes("-") || screen.includes(multiplySymbol)|| screen.includes(divideSymbol)) {
+  if (opCheck()) {
     calculate();
   }
   lastOpPress = cleanTargetOp;
@@ -97,12 +92,21 @@ const clearScreen = function() {
 lastOpPress = '';
 
 const calculate = function () {
+  /* If an operator is missing when this function is called or... */
+  if (!opCheck()){
+    return;
+  }
   calcScreen = document.getElementById("box4").firstChild;
   calcScreenString = calcScreen.innerHTML;
   calcScreenSplit = calcScreenString.split(lastOpPress);
+  console.log(calcScreenSplit);
+  /* ...there is no second number argument after the operator, exit this function */
+  if (calcScreenSplit.length < 2 || (calcScreenSplit.length >= 2 && calcScreenSplit[1] == '')) {
+    return;
+  }
   result = operate(parseFloat(calcScreenSplit[0]), lastOpPress, parseFloat(calcScreenSplit[1]));
   clearScreen();
-  screen.push(result);
+  screen.push(parseFloat(result.toFixed(6)));
   screenUpdate();
 }
 
@@ -147,3 +151,30 @@ document.getElementById("box17").addEventListener("click", clearScreen);
 // Adding the operate function to the equals button
 document.getElementById("box19").removeEventListener("click", digitClick);
 document.getElementById("box19").addEventListener("click", calculate);
+
+//PH Keyboard event testing code for NUM0
+document.addEventListener("keydown", event => {
+  if(event.key == "0"){
+ console.log("0");
+  };
+})
+
+// Keyboard alternative for = button: ENTER
+document.addEventListener("keydown", event => {
+  if(event.key == "Enter"){
+    calculate();
+  };
+})
+
+// Keyboard alternative for C button: DELETE, Backspace
+document.addEventListener("keydown", event => {
+  if(event.key == "Delete"){
+    clearScreen();
+  };
+})
+
+document.addEventListener("keydown", event => {
+  if(event.key == "Backspace"){
+    clearScreen();
+  };
+})
