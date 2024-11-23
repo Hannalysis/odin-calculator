@@ -40,6 +40,9 @@ p {
     text-align: center;
     align-content: center;
     display: flex;
+    :hover{
+        filter:brightness(120%);
+    }   
 }
 
 #box1, #box2, #box3 {
@@ -48,6 +51,9 @@ p {
 
 #box4 {
     width: 330px;
+    background-image: linear-gradient(slategray, darkslategray, darkslategray, darkslategray);
+    border-radius: 8px;
+
     p {
         font-size: 28px;
         font-weight: 800px;
@@ -57,3 +63,6 @@ p {
     }
 }
 
+#box8, #box12, #box16, #box20, #box19, #box17 {
+    filter:brightness(90%)
+}
